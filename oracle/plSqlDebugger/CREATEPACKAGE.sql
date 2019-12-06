@@ -1,0 +1,32 @@
+CREATE PACKAGE PKG_DBGD AS
+    FUNCTION tst_1(I IN INTEGER) RETURN INTEGER;
+    FUNCTION tst_2(I IN INTEGER) RETURN INTEGER;
+END PKG_DBGD;
+/
+
+CREATE PACKAGE BODY PKG_DBGD AS
+    FUNCTION tst_1(I IN INTEGER) RETURN INTEGER IS
+    BEGIN
+        IF I BETWEEN 5 AND 10 THEN
+            RETURN 2 * I;
+        END IF;
+        IF I BETWEEN 0 AND 4 THEN
+            RETURN tst_2(3 + I);
+        END IF;
+        IF I BETWEEN 6 AND 10 THEN
+            RETURN tst_2(I - 2);
+        END IF;
+        RETURN I;
+    END TST_1;
+    FUNCTION tst_2(I IN INTEGER) RETURN INTEGER IS
+    BEGIN
+        IF I BETWEEN 6 AND 8 THEN
+            RETURN tst_1(I - 1);
+        END IF;
+        IF I BETWEEN 1 AND 5 THEN
+            RETURN I * 2;
+        END IF;
+        RETURN I - 1;
+    END TST_2;
+END PKG_DBGD;
+/
